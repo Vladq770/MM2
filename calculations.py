@@ -10,7 +10,8 @@ def calculate_populations(n, time, step, left_matr, right_matr):
         for j in range(n):
             res[j, i + 1] = res[j, i] + res[j, i] * (np.dot(right_matr[j, :], res[:, i])) * step
             if left_matr[j, 2] > 0:
-                res[j, i + 1] += res[j, i] * left_matr[j, 1] * (1 - res[j, i] / left_matr[j, 3]) * step
+                res[j, i + 1] += res[j, i] * left_matr[j, 3] * ((res[:, i] ** 0.5).sum() - res[j, i] ** 0.5) * step
             else:
-                res[j, i + 1] += res[j, i] * left_matr[j, 1] * step
+                pass
+            res[j, i + 1] += res[j, i] * left_matr[j, 1] * step
     return res
